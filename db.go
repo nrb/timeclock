@@ -23,10 +23,11 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS entries (
     id INTEGER NOT NULL PRIMARY KEY,
-    FOREIGN KEY(userid) REFERENCES users(id) ON DELETE CASCADE,
     start DATETIME,
     end DATETIME,
-    note STRING
+    note STRING,
+    userid INTEGER,
+    FOREIGN KEY(userid) REFERENCES users(id)
 );`
 
 func New() (*sql.DB, error) {
