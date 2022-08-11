@@ -10,13 +10,14 @@ import (
 const file string = "timeclock.db"
 
 // Create the database if needed
-// TODO: register an admin user
+// TODO: register an admin user here?
 const create string = `
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER NOT NULL PRIMARY KEY,
     name STRING,
     email STRING,
     password STRING,
+    salt STRING,
     admin BOOLEAN
 );
 
