@@ -1,18 +1,23 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"database/sql"
+
+	"github.com/gin-gonic/gin"
+)
 
 type server struct {
 	host, port string
 	router     *gin.Engine
-	// DB
+	db         *sql.DB
 }
 
-func NewServer(host, port string, router *gin.Engine) *server {
+func NewServer(host, port string, router *gin.Engine, db *sql.DB) *server {
 	return &server{
 		host:   host,
 		port:   port,
 		router: router,
+		db:     db,
 	}
 }
 

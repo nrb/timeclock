@@ -1,9 +1,16 @@
 package main
 
+import "log"
+
 func main() {
 	r := CreateRoutes()
 
-	s := NewServer("", "", r)
+	db, err := NewDB(DB_MODE_MEM)
+	if err != nil {
+		log.Fatalf("Could not create database: %s", err)
+	}
+
+	s := NewServer("", "", r, db)
 
 	s.Run()
 
