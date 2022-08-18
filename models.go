@@ -7,14 +7,16 @@ type User struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
-    Salt string `json:"salt"`
+	Salt     string `json:"salt"`
 	Admin    bool   `json:"admin"`
 }
 
-// UserStore provides CRUD methods for User structs in a database
-type UserStore interface {
+// UserCRUD provides CRUD methods for User structs in a database
+type UserCRUD interface {
+	// Create creates a user in the database and returns the generated ID. ID is 0 on errors.
+	Create(u *User) (int, error)
 	// Get retrieves a single user
-	Get(id string) (User, error)
+	Get(id int) (*User, error)
 	// List returns all users after given offset
 	List(offset int) ([]*User, error)
 	// Delete removes a user
@@ -24,7 +26,7 @@ type UserStore interface {
 	Update(u *User) (*User, error)
 }
 
-//NOTE: store times as  "2006-01-02 15:04:05.999999999-07:00" in SQLite
+// NOTE: store times as  "2006-01-02 15:04:05.999999999-07:00" in SQLite
 type Entry struct {
 	ID         int       `json:"id"`
 	EmployeeID string    `json:"employee_id"`
